@@ -16,7 +16,7 @@ def getPredictions(umur, kelas_pekerjaan, tingkat_pendidikan, pekerjaan, relatio
     prediction_output = numpy.array_str(prediciton)
 
     if prediction_output == "['<=50K']":
-        return 'Your income is <-50K'
+        return 'Your income is <=50K'
     elif prediction_output == "['>50K']":
         return 'Your income is >50K'
     else:
