@@ -9,49 +9,67 @@
         .form-content{
             width: 50%;
         }
+
+        .modal-image{
+            max-width: 100%;
+            max-height: 100%;
+        }
     </style>
     <title>Predict Your Income - web</title>
 </head>
-<body class="container mt-5">
-    <p class="h1 text-center">Your income prediction</p>
+<body class="container mt-2">
+    <p class="h1 text-center">The Income Predicition</p>
+    <p class="h2 text-center">"Do they include in your <button type="button" class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#product-item">product</button> target market?"</p>
+    <p class="h6 text-secondary text-center">input the variable in the form below to make prediction and know the answer &#128521;</p>
+    {% include "product-modal.html" %}
 
-    <div class="d-flex my-5 mx-auto form-content">
+    <div class="d-flex my-3 mx-auto px-5 form-content">
         <di class="me-5">
             <form action="{% url 'result' %}">
                 {% csrf_token %}
 
                 <p>Umur:</p>
-                <input type="text" name="umur">
+                <input type="text" name="umur" required>
                 <br>
 
                 <p>Kelas Pekerja:</p>
-                <input type="text" name="kelas_pekerjaan">
+                <input type="text" name="kelas_pekerjaan" required>
                 <br>
 
                 <p>Tingkat Pendidikan:</p>
-                <input type="text" name="tingkat_pendidikan">
+                <input type="text" name="tingkat_pendidikan" required>
                 <br>
 
                 <p>Pekerjaan:</p>
-                <input type="text" name="pekerjaan">
+                <input type="text" name="pekerjaan" required>
                 <br>
 
                 <p>Relationship:</p>
-                <input type="text" name="relationship">
+                <input type="text" name="relationship" required>
                 <br>
 
                 <p>Jam Kerja/Minggu:</p>
-                <input type="text" name="jam_kerja_per_minggu">
+                <input type="text" name="jam_kerja_per_minggu" required>
                 <br>
 
-                <input type="submit" value="Get Prediction" class="btn btn-primary mt-3"/>
+                <input type="submit" value="Get Prediction" class="btn btn-dark mt-3"/>
             </form>
         </di my-5v>
         <div class="me-5">
-            <p class="h1">Your income prediction Result</p>
+            <p class="h1">The income prediction result :</p>
 
-            <div class="mt-3">
-                {{ result }}
+            <div class="mt-3 text-bg-dark py-2 px-2 rounded result-content">
+                {% if result == "Your income is <=50K" %}
+                    <p>Your future client income is <b>less or equal than 50K</b>.</p>
+                    <p>they are not include to your target market &#128517;.</p>
+                {% elif result == "Your income is >50K" %}
+                    <p>Your future client income is <b>greater than 50K</b>.</p>
+                    <p>they are include to your target market &#128512;.</p>
+                {% else %}
+                    <p>Something error &#128128;</p>
+                {% endif %}
+
+                <p>&#8592; try another.</p>
             </div>
         </div>
     </div>
